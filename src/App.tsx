@@ -1,7 +1,7 @@
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
-import { ADDITIVE, CounterAction } from "./types";
+import { CounterAction } from "./types";
 import Counter from "./Counter";
 
 const initialState = {
@@ -12,20 +12,24 @@ const reducer = (state = initialState, action: CounterAction) => {
   console.debug("reducer", state, action);
 
   switch (action.type) {
-    case "INCREMENT":
+    case "ADD":
       return {
-        count:
-          action.operator === ADDITIVE
-            ? state.count + action.value
-            : state.count * action.value,
+        count: state.count + action.value,
       };
 
-    case "DECREMENT":
+    case "SUBTRACT":
       return {
-        count:
-          action.operator === ADDITIVE
-            ? state.count - action.value
-            : state.count / action.value,
+        count: state.count - action.value,
+      };
+
+    case "MULTIPLY":
+      return {
+        count: state.count * action.value,
+      };
+
+    case "DIVIDE":
+      return {
+        count: state.count / action.value,
       };
 
     case "RESET":

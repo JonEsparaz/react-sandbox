@@ -1,7 +1,7 @@
 import { CSSProperties, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { increment, decrement, reset } from "./actions";
+import { add, subtract, multiply, divide, reset } from "./actions";
 import {
   ADDITIVE,
   MULTIPLICATIVE,
@@ -33,7 +33,11 @@ const Counter = () => {
       <h1>Redux Counter</h1>
       <span>{count}</span>
       <div style={rowStyle}>
-        <button onClick={() => dispatch(decrement(step, operator))}>
+        <button
+          onClick={() =>
+            dispatch(operator === ADDITIVE ? subtract(step) : divide(step))
+          }
+        >
           {operator === ADDITIVE ? "-" : "÷"} {step}
         </button>
         <button
@@ -45,9 +49,12 @@ const Counter = () => {
         >
           Reset
         </button>
-        <button onClick={() => dispatch(increment(step, operator))}>
-          {operator === ADDITIVE ? "+" : "×"}
-          {step}
+        <button
+          onClick={() =>
+            dispatch(operator === ADDITIVE ? add(step) : multiply(step))
+          }
+        >
+          {operator === ADDITIVE ? "+" : "×"} {step}
         </button>
       </div>
       <label htmlFor="step">Step size (between 1 and 10)</label>
